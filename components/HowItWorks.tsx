@@ -86,7 +86,7 @@ const StepCard = ({
 
       {/* Connecting Line */}
       {index < steps.length - 1 && (
-        <div className="absolute top-6 left-[64%] w-[79%] h-0.5 bg-border hidden lg:block">
+        <div className="absolute top-[30px] left-[64%] w-[79%] h-0.5 bg-border hidden lg:block">
           <div
             className="h-full transition-all duration-1000"
             style={{

@@ -11,19 +11,19 @@ export default function FloatingContact() {
     {
       icon: Phone,
       label: "Call Now",
-      href: "tel:+919876543210",
+      href: "tel:+919121497777",
       color: "from-green-500 to-green-600",
     },
     {
       icon: MessageCircle,
       label: "WhatsApp",
-      href: "https://wa.me/919876543210",
+      href: "https://wa.me/919121497777",
       color: "from-green-600 to-green-700",
     },
     {
       icon: Mail,
       label: "Email Us",
-      href: "mailto:contact@flyersconnect.com",
+      href: "mailto:info@flyersconnect.com",
       color: "from-blue-500 to-blue-600",
     },
   ];

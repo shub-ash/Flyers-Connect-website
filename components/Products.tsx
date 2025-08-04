@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Monitor,
@@ -10,10 +10,12 @@ import {
   Check,
   Smartphone,
 } from "lucide-react";
+import QuoteModal from "./ui/quote-model";
 
 export default function Products() {
   const sectionRef = useRef(null);
   const isSectionInView = useInView(sectionRef);
+  const [showModal, setShowModal] = useState(false);
 
   const cardRef = useRef(null);
   const isCardInView = useInView(cardRef);
@@ -159,14 +161,14 @@ export default function Products() {
                       ))}
                     </ul>
 
-                    <div className="flex items-center justify-between mb-4">
+                    {/* <div className="flex items-center justify-between mb-4">
                       <div>
                         <div className="text-xl font-bold text-gray-900">
                           {product.startingPrice}
                         </div>
                         <div className="text-sm text-gray-500">per month</div>
                       </div>
-                    </div>
+                    </div> */}
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -174,8 +176,9 @@ export default function Products() {
                       style={{
                         backgroundImage: `linear-gradient(to right, ${product.gradientFrom}, ${product.gradientTo})`,
                       }}
+                      onClick={() => setShowModal(true)}
                     >
-                      Rent Now
+                      Get Quote
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </motion.button>
                   </div>
@@ -184,6 +187,7 @@ export default function Products() {
             );
           })}
         </div>
+        <QuoteModal open={showModal} onClose={() => setShowModal(false)} />
 
         {/* CTA at bottom */}
         <div className="mt-20" ref={sectionRef}>
@@ -204,6 +208,7 @@ export default function Products() {
               style={{
                 backgroundImage: PRIMARY_GRADIENT,
               }}
+              onClick={() => setShowModal(true)}
             >
               Get Expert Recommendation
               <ArrowRight className="ml-2 w-5 h-5" />

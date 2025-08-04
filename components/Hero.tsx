@@ -5,9 +5,12 @@ import { ArrowRight, Play, Monitor, Laptop, Smartphone } from "lucide-react";
 import Image from "next/image";
 import Workingman from "../components/assets/images/workingman.gif";
 import { useState } from "react";
+import QuoteModal from "./ui/quote-model";
 
 export default function Hero() {
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
+
+  const [showModal, setShowModal] = useState(false);
 
   const products = [
     {
@@ -141,6 +144,7 @@ export default function Hero() {
                 className="group inline-flex items-center justify-center px-8 py-4 bg-[#006FE6] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setShowModal(true)}
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -155,6 +159,8 @@ export default function Hero() {
                 <span>Explore Devices</span>
               </motion.button>
             </motion.div>
+
+            <QuoteModal open={showModal} onClose={() => setShowModal(false)} />
 
             {/* Stats */}
             <motion.div

@@ -111,11 +111,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="w-5 h-5 mr-3 text-blue-400" />
-                <span>+91 98765 43210</span>
+                <span>+91 9121497777</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Mail className="w-5 h-5 mr-3 text-blue-400" />
-                <span>contact@flyersconnect.com</span>
+                <span>info@flyersconnect.com</span>
               </div>
             </div>
           </motion.div>
