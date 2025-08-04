@@ -36,7 +36,7 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-11/12 md:w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <motion.div

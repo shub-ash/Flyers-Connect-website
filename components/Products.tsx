@@ -85,8 +85,11 @@ export default function Products() {
   ];
 
   return (
-    <section id="products" className="py-20 bg-gray-50" ref={sectionRef}>
-      <div className="w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="products" className="py-20 bg-gray-50">
+      <div
+        className="w-11/12 md:w-10/12 mx-auto px-4 sm:px-6 lg:px-8"
+        ref={sectionRef}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isSectionInView ? { opacity: 1, y: 0 } : {}}
@@ -107,10 +110,10 @@ export default function Products() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" ref={cardRef}>
           {products.map((product, index) => {
             return (
-              <div ref={cardRef} key={product.name}>
+              <div key={product.name}>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={isCardInView ? { opacity: 1, y: 0 } : {}}
@@ -197,7 +200,7 @@ export default function Products() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center px-8 py-4 text-white font-semibold rounded-full transition duration-300 shadow-lg"
+              className="inline-flex items-center lg:px-8 lg:py-4 px-2 py-1 text-white font-semibold rounded-full transition duration-300 shadow-lg"
               style={{
                 backgroundImage: PRIMARY_GRADIENT,
               }}

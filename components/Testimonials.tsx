@@ -75,7 +75,7 @@ export default function Testimonials() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-11/12 md:w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

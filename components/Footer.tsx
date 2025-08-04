@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
-import logo from "../components/assets/icons/FlyersLogo.svg";
+import logo from "../components/assets/icons/logowhite.svg";
 import Image from "next/image";
 
 export default function Footer() {
@@ -43,7 +43,7 @@ export default function Footer() {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      <div className="w-10/12 mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div className="w-11/12 md:w-10/12 mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         {/* Newsletter Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

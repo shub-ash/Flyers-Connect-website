@@ -72,7 +72,7 @@ export default function WhyRentFromUs() {
 
   return (
     <section id="why-rent" className="py-0 pb-32 bg-gray-50">
-      <div className="w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-11/12 md:w-10/12 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           ref={headerRef}
@@ -95,12 +95,11 @@ export default function WhyRentFromUs() {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" ref={ref}>
           {features.map((feature, index) => {
             return (
               <motion.div
                 key={feature.title}
-                ref={ref}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: index * 0.1 }}

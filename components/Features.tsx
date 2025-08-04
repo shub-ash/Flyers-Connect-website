@@ -93,7 +93,7 @@ export default function UseCases() {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="py-20 px-4 bg-background w-10/12 mx-auto"
+      className="py-20 px-4 bg-background w-11/12 md:w-10/12 mx-auto"
     >
       {/* Header */}
       <div className="text-center mb-16">

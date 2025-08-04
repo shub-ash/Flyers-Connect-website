@@ -61,7 +61,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="relative z-10 w-10/12 mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <div className="relative z-10  w-11/12 md:w-10/12 mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column */}
           <div className="text-center lg:text-left">
@@ -81,7 +81,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium leading-loose mb-6"
+              className="text-4xl lg:text-6xl xl:text-7xl font-medium  mb-6 w-full"
             >
               <span className="text-[#003557]">Premium Mac</span>
               <br />
