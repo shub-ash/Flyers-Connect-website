@@ -7,20 +7,55 @@ import { motion, AnimatePresence } from "framer-motion";
 interface QuoteModalProps {
   open: boolean;
   onClose: () => void;
+  selectedDevice?: string;
 }
 
-export default function QuoteModal({ open, onClose }: QuoteModalProps) {
+const DEVICE_OPTIONS = ["MacBook Pro", "MacBook Air", "iMac", "Mac Mini"];
+
+const INITIAL_FORM_STATE = {
+  firstName: "",
+  organization: "",
+  phone: "",
+  device: "",
+  area: "",
+};
+
+const FORM_FIELDS = [
+  {
+    label: "First Name",
+    name: "firstName",
+    type: "text",
+    placeholder: "Enter your name",
+  },
+  {
+    label: "Organization",
+    name: "organization",
+    type: "text",
+    placeholder: "Company, College, etc.",
+  },
+  {
+    label: "Phone",
+    name: "phone",
+    type: "tel",
+    placeholder: "Enter your phone number",
+  },
+  {
+    label: "Area",
+    name: "area",
+    type: "text",
+    placeholder: "City, region, etc.",
+  },
+];
+
+export default function QuoteModal({
+  open,
+  onClose,
+  selectedDevice,
+}: QuoteModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const PRIMARY_GRADIENT = "linear-gradient(to right, #006FE6, #6C4BFF)";
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    phone: "",
-    device: "",
-    area: "",
-  });
-
-  const devices = ["MacBook", "iMac", "Mac Mini", "iPad"];
+  const resetForm = () => setFormData(INITIAL_FORM_STATE);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -35,23 +70,33 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
     if (!isValid) return;
 
     console.log("Submitted:", formData);
-    setFormData({ firstName: "", phone: "", device: "", area: "" });
+    resetForm();
     onClose();
   };
 
-  // Close on outside click
+  // Close modal on outside click
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
+    const handleOutsideClick = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         onClose();
-        setFormData({ firstName: "", phone: "", device: "", area: "" });
+        resetForm();
       }
     };
-    if (open) {
-      window.addEventListener("mousedown", handler);
-    }
-    return () => window.removeEventListener("mousedown", handler);
+    if (open) window.addEventListener("mousedown", handleOutsideClick);
+    return () => window.removeEventListener("mousedown", handleOutsideClick);
   }, [open, onClose]);
+
+  // Prefill selected device and reset others
+  useEffect(() => {
+    if (open) {
+      setFormData((prev) => ({
+        ...INITIAL_FORM_STATE,
+        device: selectedDevice ?? "",
+      }));
+    } else {
+      resetForm();
+    }
+  }, [open, selectedDevice]);
 
   return (
     <AnimatePresence>
@@ -64,16 +109,16 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
         >
           <motion.div
             ref={modalRef}
-            initial={{ scale: 0.8, opacity: 0, y: -50 }}
+            initial={{ scale: 0.9, opacity: 0, y: -50 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: -30 }}
+            exit={{ scale: 0.9, opacity: 0, y: -30 }}
             transition={{ type: "spring", duration: 0.4 }}
             className="bg-white rounded-2xl p-6 w-[90vw] max-w-md shadow-2xl relative"
           >
             <button
               onClick={() => {
                 onClose();
-                setFormData({ firstName: "", phone: "", device: "", area: "" });
+                resetForm();
               }}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
             >
@@ -90,40 +135,30 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
             </motion.h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <label className="text-sm block mb-1">First Name</label>
-                <input
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </motion.div>
+              {FORM_FIELDS.map((field, index) => (
+                <motion.div
+                  key={field.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                >
+                  <label className="text-sm block mb-1">{field.label}</label>
+                  <input
+                    name={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formData[field.name as keyof typeof formData]}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </motion.div>
+              ))}
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <label className="text-sm block mb-1">Phone</label>
-                <input
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.7 }}
               >
                 <label className="text-sm block mb-1">Device Needed</label>
                 <select
@@ -136,7 +171,7 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                   <option value="" disabled>
                     Select a device
                   </option>
-                  {devices.map((device) => (
+                  {DEVICE_OPTIONS.map((device) => (
                     <option key={device} value={device}>
                       {device}
                     </option>
@@ -144,29 +179,11 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                 </select>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <label className="text-sm block mb-1">Area</label>
-                <input
-                  name="area"
-                  value={formData.area}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </motion.div>
-
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-2 bg-[#006FE6] text-white rounded-md font-semibold hover:bg-[#0056ba] transition"
-                style={{
-                  backgroundImage: PRIMARY_GRADIENT,
-                }}
+                className="w-full py-2 mt-2 bg-[#006FE6] text-white rounded-md font-semibold hover:bg-[#0056ba] transition"
               >
                 Submit
               </motion.button>

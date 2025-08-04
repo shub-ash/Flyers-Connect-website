@@ -16,6 +16,7 @@ export default function Products() {
   const sectionRef = useRef(null);
   const isSectionInView = useInView(sectionRef);
   const [showModal, setShowModal] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
 
   const cardRef = useRef(null);
   const isCardInView = useInView(cardRef);
@@ -85,6 +86,13 @@ export default function Products() {
       gradientTo: "#FFD279",
     },
   ];
+
+  const handleOpenModal = (device?: string) => {
+    setShowModal(true);
+    if (device) {
+      setSelectedDevice(device);
+    }
+  };
 
   return (
     <section id="products" className="py-20 bg-gray-50">
@@ -176,7 +184,7 @@ export default function Products() {
                       style={{
                         backgroundImage: `linear-gradient(to right, ${product.gradientFrom}, ${product.gradientTo})`,
                       }}
-                      onClick={() => setShowModal(true)}
+                      onClick={() => handleOpenModal(product.name)}
                     >
                       Get Quote
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -187,7 +195,11 @@ export default function Products() {
             );
           })}
         </div>
-        <QuoteModal open={showModal} onClose={() => setShowModal(false)} />
+        <QuoteModal
+          open={showModal}
+          onClose={() => setShowModal(false)}
+          selectedDevice={selectedDevice || ""}
+        />
 
         {/* CTA at bottom */}
         <div className="mt-20" ref={sectionRef}>
@@ -208,7 +220,10 @@ export default function Products() {
               style={{
                 backgroundImage: PRIMARY_GRADIENT,
               }}
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setShowModal(true);
+                setSelectedDevice("");
+              }}
             >
               Get Expert Recommendation
               <ArrowRight className="ml-2 w-5 h-5" />
